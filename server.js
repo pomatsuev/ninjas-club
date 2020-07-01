@@ -12,17 +12,17 @@ app.use(
 );
 
 const authMiddleware = (req, res, next) => {
-  if (req.body.authId) {
-    req.ninjaId = req.body.authId;
+  if (req.headers['auth-id']) {
+    req.ninjaId = req.headers['auth-id'];
     next();
   } else {
-    res.status(403).json({ message: 'только для настоящих ниндзя!' });
+    res.status(403).json({ message: 'only real ninjas!' });
   }
 };
 
 const filterID = (id) => (ninja) => ninja.id === id;
 const filterLogin = (login) => (ninja) => ninja.login === login;
-const filterSearchFullName = (search) => (ninja) => new RegExp(search).test(ninja.fullName);
+const filterSearchFullName = (search) => (ninja) => new RegExp(search, 'gi').test(ninja.fullName);
 
 const MOKED_DB = {
   users: [
@@ -42,14 +42,14 @@ app.get('/api/all', (req, res) => {
 
 app.get('/api/ninja', (req, res) => {
   const { searchName } = req.query;
-  !searchName && res.status(400).json({ message: 'нужен параметр для поиска' });
+  !searchName && res.status(400).json({ message: 'who are we finding?' });
   res.status(200).json(MOKED_DB.users.filter(filterSearchFullName(searchName)));
 });
 
 app.post('/api/reg', (req, res) => {
   const { login, fullName, pass } = req.body;
   if (MOKED_DB.users.filter(filterLogin(login)).length > 0)
-    return res.status(400).json({ message: 'такой ниндзя есть ((' });
+    return res.status(400).json({ message: 'such a ninja is exist' });
   const newNinja = { id: ++ID, login, fullName, pass, friends: [] };
   MOKED_DB.users.push(newNinja);
   res.status(201).json({ status: 'ok' });
@@ -61,7 +61,7 @@ app.post('/api/login', (req, res) => {
   if (ninjaFromBase && ninjaFromBase.pass === pass) {
     return res.status(200).json(ninjaFromBase);
   }
-  return res.status(400).json({ message: 'вы не ниндзя!' });
+  return res.status(400).json({ message: 'we are not ninja!' });
 });
 
 app.get('/api/friends', authMiddleware, (req, res) => {

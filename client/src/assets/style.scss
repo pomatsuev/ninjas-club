@@ -57,10 +57,6 @@ button {
   &:hover {
     color: crimson;
   }
-  &:active,
-  &:focus {
-    outline: rgba(0, 0, 0, 0.15) solid 4px;
-  }
 }
 
 .link {
@@ -98,6 +94,9 @@ button {
     &_400 {
       max-width: 400px;
     }
+    &_800 {
+      max-width: 800px;
+    }
   }
   &__form {
     margin-top: 2rem;
@@ -124,4 +123,54 @@ button {
 .logo {
   display: block;
   margin: 0 auto;
+}
+
+.tab-container {
+  &__buttons {
+    display: flex;
+  }
+  &__button {
+    text-align: center;
+    color: crimson;
+    padding: 1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    &_active {
+      transform: scale(1.2);
+      text-shadow: 0 0 5px crimson;
+    }
+  }
+}
+
+.ninja-list {
+  &__li {
+    padding: 0.5rem 0;
+  }
+}
+
+.modal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  &__box {
+    background-color: white;
+    width: 400px;
+    padding: 3rem;
+    margin: 0 auto;
+    margin-top: 200px;
+    display: block;
+  }
+  &__text {
+    text-align: center;
+    margin: 1rem 0;
+    color: crimson;
+  }
+  &__button {
+    margin: 0 auto;
+    display: block;
+  }
 }

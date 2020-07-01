@@ -4,11 +4,20 @@
   "description": "",
   "private": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon server.js",
+    "client": "yarn --cwd client/ start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "ins:client": "yarn --cwd client/ install",
+    "ins:server": "npm install",
+    "ins": "concurrently \"npm run ins:server\" \"npm run ins:client\""
   },
   "author": "Pomatsuev Stanislav",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
   }
 }

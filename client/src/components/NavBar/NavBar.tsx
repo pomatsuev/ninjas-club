@@ -18,7 +18,14 @@ export const NavBar = () => {
         )}
         {auth.ninjaId && (
           <li className="navbar__li">
-            <Link to="/logout">LOGOUT</Link>
+            <Link
+              to="/logout"
+              onClick={() => {
+                auth.exit && auth.exit();
+              }}
+            >
+              LOGOUT
+            </Link>
           </li>
         )}
       </ul>
